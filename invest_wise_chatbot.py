@@ -2,6 +2,18 @@ import streamlit as st
 import numpy as np
 import pickle
 import base64
+import gdown
+import os
+
+model_path = "invest_wise_classifier.pkl"
+file_id = "1IVrXG6o9N14j1KAN5_QzQxNmPCYqgE1Q"
+gdrive_url = f"https://drive.google.com/uc?id={file_id}"
+
+if not os.path.exists(model_path):
+    gdown.download(gdrive_url, model_path, quiet=False)
+
+with open(model_path, "rb") as f:
+    model = pickle.load(f)
 
 # Function to set the background image (use your JPEG or PNG here)
 def set_background_jpeg(jpeg_file):
