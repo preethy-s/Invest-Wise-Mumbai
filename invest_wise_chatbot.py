@@ -6,11 +6,11 @@ import gdown
 import os
 
 model_path = "invest_wise_classifier.pkl"
-file_id = "1IVrXG6o9N14j1KAN5_QzQxNmPCYqgE1Q"
+file_id = "1lVrXG6o9N14j1KAN5_QzQxNmPCYqqE1Q"
 gdrive_url = f"https://drive.google.com/uc?id={file_id}"
 
 if not os.path.exists(model_path):
-    gdown.download(gdrive_url, model_path, quiet=False)
+    gdown.download(gdrive_url, model_path, quiet=False, fuzzy=True)
 
 with open(model_path, "rb") as f:
     model = pickle.load(f)
@@ -126,3 +126,4 @@ if st.button("Predict Investment 🔍"):
         st.success("🎉 This is a Good Investment! 🚀")
     else:
         st.error("⚠ This might not be the best Investment.")
+
