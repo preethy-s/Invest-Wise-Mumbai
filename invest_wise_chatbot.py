@@ -52,6 +52,24 @@ def set_background_jpeg(jpeg_file):
             font-size: 20px !important;
         }}
 
+        /* New: blurry grey box behind input labels */
+    section[data-testid="stWidget"] > label {{
+        display: block;
+        position: relative;
+        z-index: 2;
+    }}
+    section[data-testid="stWidget"] > label::before {{
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border-radius: 12px;
+        background: rgba(64, 64, 64, 0.5);
+        backdrop-filter: blur(8px);
+        z-index: -1;
+    }}
         </style>
         """,
         unsafe_allow_html=True,
@@ -90,7 +108,7 @@ type_encoded = type_dict[type_name]
 
 area = st.number_input("Area in square feet 📐", min_value=1, step=1, format="%d")
 
-price_lakhs = st.number_input("Property price (in lakhs) 💵", min_value=0.0, step=0.01, format="%.2f")
+price_lakhs = st.number_input("Property price (in lakhs) 💵 (INR)", min_value=0.0, step=0.01, format="%.2f")
 
 region_dict = {
     "Navi Mumbai & Thane": 0,
@@ -127,5 +145,6 @@ if st.button("Predict Investment 🔍"):
         st.success("🎉 This is a Good Investment! 🚀")
     else:
         st.error("⚠ This might not be the best Investment.")
+
 
 
