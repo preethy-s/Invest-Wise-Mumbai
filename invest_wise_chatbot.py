@@ -90,7 +90,7 @@ type_encoded = type_dict[type_name]
 
 area = st.number_input("Area in square feet 📐", min_value=1, step=1, format="%d")
 
-price = st.number_input("Property price (in lakhs) 💵", min_value=0.0, step=0.01, format="%.2f")
+price_lakhs = st.number_input("Property price (in lakhs) 💵", min_value=0.0, step=0.01, format="%.2f")
 
 region_dict = {
     "Navi Mumbai & Thane": 0,
@@ -120,10 +120,12 @@ age_name = st.selectbox("Property age classification 🕰", list(age_dict.keys()
 age_encoded = age_dict[age_name]
 
 if st.button("Predict Investment 🔍"):
+    price = price_lakhs * 100000
     input_features = np.array([[bhk, type_encoded, area, price, region_encoded, status_encoded, age_encoded]])
     prediction = model.predict(input_features)
     if prediction[0] == 'Good Investment':
         st.success("🎉 This is a Good Investment! 🚀")
     else:
         st.error("⚠ This might not be the best Investment.")
+
 
